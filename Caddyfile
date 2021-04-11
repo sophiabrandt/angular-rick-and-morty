@@ -1,0 +1,3 @@
+rickandmorty.app.localhost {
+  reverse_proxy * localhost:4200
+}

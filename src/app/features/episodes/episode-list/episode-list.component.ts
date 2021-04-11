@@ -75,19 +75,10 @@ interface EpisodeSearch {
 export class EpisodeListComponent {
   searchForm;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private episodesService: EpisodesService
-  ) {
-    this.searchForm = this.formBuilder.group({
-      name: '',
-    });
-  }
+  episodes$: Observable<Episodes> = this.episodesService.episodes$;
 
   private episodeNameSubject = new BehaviorSubject<string>('');
   episodeNameAction$ = this.episodeNameSubject.asObservable();
-
-  episodes$: Observable<Episodes> = this.episodesService.episodes$;
 
   vm$ = combineLatest(
     this.episodes$.pipe(pluck('results')),
@@ -103,8 +94,18 @@ export class EpisodeListComponent {
     )
   );
 
+  constructor(
+    private formBuilder: FormBuilder,
+    private episodesService: EpisodesService
+  ) {
+    this.searchForm = this.formBuilder.group({
+      name: '',
+    });
+  }
+
   onSubmit(episodeSearch: EpisodeSearch) {
     this.episodeNameSubject.next(episodeSearch.name);
     this.searchForm.reset();
   }
+
 }

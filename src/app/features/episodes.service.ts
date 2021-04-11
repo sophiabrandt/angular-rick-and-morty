@@ -9,11 +9,10 @@ import { catchError, map, shareReplay, tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class EpisodesService {
-  constructor(private http: HttpClient) {}
-
   private episodesUrl = 'https://rickandmortyapi.com/api/episode';
 
-  episodes$ = this.http
-    .get<Episodes>(this.episodesUrl)
-    // .pipe(tap(console.table));
+  episodes$ = this.http.get<Episodes>(this.episodesUrl);
+  // .pipe(tap(console.table));
+
+  constructor(private http: HttpClient) {}
 }

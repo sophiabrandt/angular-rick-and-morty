@@ -1,3 +1,8 @@
-rickandmorty.app.localhost {
+{
+  http_port 8800
+  https_port 4444
+}
+
+rickandmorty.caddy.localhost:4444 {
   reverse_proxy * localhost:4200
 }

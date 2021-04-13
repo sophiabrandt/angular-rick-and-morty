@@ -58,7 +58,7 @@ interface EpisodeSearch {
           class="br2 ba dark-gray b--black-10 mv4 w-25-l mw5 mr4"
           *ngFor="let result of vm"
         >
-          <article class="fl w-100 pa2">
+          <article class="fl w-100 pa2 flex flex-column justify-between h-100">
             <img
               src="https://avatars.dicebear.com/api/bottts/{{
                 result.episode
@@ -82,8 +82,9 @@ interface EpisodeSearch {
               <p class="f6 lh-copy measure mt2 mid-gray">
                 Episode: {{ result.episode }}
               </p>
-              <p class="f6 lh-copy measure mt2 mid-gray">
-                <a href="{{ result.url }}">Link</a>
+              <p class="f6 flex justify-around lh-copy measure mt2 mid-gray">
+                <a class="w-25 no-underline tc pointer br2 ba b--navy bg-dark-blue white pa2 ml1 mv1 bg-animate hover-bg-navy border-box" href="{{ result.url }}">Link</a>
+                <button class="w-25 tc pointer br2 ba b--dark-green bg-green white pa2 ml1 mv1 bg-animate hover-bg-dark-green border-box" type="button">Fav</button>
               </p>
             </div>
           </article>

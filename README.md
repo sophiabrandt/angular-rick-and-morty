@@ -12,13 +12,17 @@ Install dependencies with npm or [pnpm](https://pnpm.io).
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+Run the json server via `npm run json-server`.
+
 ### Local HTTPS
 
 Use [Caddy](https://caddyserver.com/) for local development with HTTPS.
 
 ```sh
-npm run start # or pnpm run start
 caddy run
+npm run start # or pnpm run start
+npm run json-server # or pnpm run json-server
 ```
 
-Go to [https://rickandmorty.caddy.localhost:4444](https://rickandmorty.caddy.localhost:4444).
+Go to [https://rickandmorty.caddy.localhost:4444](https://rickandmorty.caddy.localhost:4444) for the Angular app.  
+Go to [https://rickandmortyapi.caddy.localhost:4444](https://rickandmortyapi.caddy.localhost:4444) for the development API.

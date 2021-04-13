@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "https://rickandmortyapi.caddy.localhost:4444",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

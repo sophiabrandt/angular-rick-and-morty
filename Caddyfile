@@ -6,3 +6,7 @@
 rickandmorty.caddy.localhost:4444 {
   reverse_proxy * localhost:4200
 }
+
+rickandmortyapi.caddy.localhost:4444 {
+  reverse_proxy * localhost:3004
+}

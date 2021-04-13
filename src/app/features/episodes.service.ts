@@ -9,7 +9,7 @@ import { Episodes } from './episodes.entity';
   providedIn: 'root',
 })
 export class EpisodesService {
-  private episodesUrl = 'https://rickandmortyapi.com/api/episode';
+  private episodesUrl = '/api/episode';
 
   episodes$ = this.http
     .get<Episodes>(this.episodesUrl)

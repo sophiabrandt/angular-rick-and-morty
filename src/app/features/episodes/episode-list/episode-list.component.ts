@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import {
   BehaviorSubject,
@@ -83,8 +83,18 @@ interface EpisodeSearch {
                 Episode: {{ result.episode }}
               </p>
               <p class="f6 flex justify-around lh-copy measure mt2 mid-gray">
-                <a class="w-25 no-underline tc pointer br2 ba b--navy bg-dark-blue white pa2 ml1 mv1 bg-animate hover-bg-navy border-box" href="{{ result.url }}">Link</a>
-                <button class="w-25 tc pointer br2 ba b--dark-green bg-green white pa2 ml1 mv1 bg-animate hover-bg-dark-green border-box" type="button">Fav</button>
+                <a
+                  class="w-25 no-underline tc pointer br2 ba b--navy bg-dark-blue white pa2 ml1 mv1 bg-animate hover-bg-navy border-box"
+                  href="{{ result.url }}"
+                  >Link</a
+                >
+                <button
+                  (click)="onFavorited(result.id)"
+                  class="w-25 tc pointer br2 ba b--dark-green bg-green white pa2 ml1 mv1 bg-animate hover-bg-dark-green border-box"
+                  type="button"
+                >
+                  Fav
+                </button>
               </p>
             </div>
           </article>
@@ -93,6 +103,7 @@ interface EpisodeSearch {
     </div>
   `,
   styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EpisodeListComponent {
   searchForm;
@@ -134,5 +145,9 @@ export class EpisodeListComponent {
   onSubmit(episodeSearch: EpisodeSearch) {
     this.episodeNameSubject.next(episodeSearch.name);
     this.searchForm.reset();
+  }
+
+  onFavorited(episodeId: number): void {
+    this.episodesService.favoriteEpisode(episodeId);
   }
 }

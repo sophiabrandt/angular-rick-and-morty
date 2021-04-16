@@ -23,38 +23,28 @@ export class EpisodesService {
   episodesFavoriteAction$ = this.episodesFavoriteSubject.asObservable();
 
   favorites$ = combineLatest(
-    this.episodes$.pipe(
-      pluck('results'),
-      tap((x) => console.log('results', x))
-    ),
-    this.episodesFavoriteAction$.pipe(
-      tap((x) => console.log('favoriteAction', x))
-    )
+    this.episodes$.pipe(pluck('results')),
+    this.episodesFavoriteAction$
   ).pipe(
     map(
-      ([results, favorites]: [
-        ResultsEntity[] | null | undefined,
-        Number[]
-      ]) => {
-        // console.log({results})
-        // console.log({favorites})
-        return results?.filter((result) => favorites.includes(result.id));
-      }
+      ([results, favorites]: [ResultsEntity[] | null | undefined, Number[]]) =>
+        results?.filter((result) => favorites.includes(result.id))
     ),
-    shareReplay({refCount: true, bufferSize: 1}),
+    shareReplay({ refCount: true, bufferSize: 1 }),
     catchError(this.handleError)
   );
 
   constructor(private http: HttpClient) {}
 
   favoriteEpisode(episodeId: number): void {
-    console.log('favoriteEpisode method in service triggered');
     this.episodesFavoriteSubject.pipe(take(1)).subscribe((favs) => {
-      const favsSet = new Set(favs);
-      favsSet.add(episodeId);
-      // TODO: next method triggers every time, even if favs are "identical"
-      // to previous iteration
-      this.episodesFavoriteSubject.next(Array.from(favsSet));
+      // only add a new favorite episode if it doesn't exist yet
+      const prevFavs = new Set(favs);
+      prevFavs.add(episodeId);
+      const newFavs = Array.from(prevFavs);
+      if (newFavs.length !== favs.length) {
+        this.episodesFavoriteSubject.next(newFavs);
+      }
     });
   }
 

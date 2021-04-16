@@ -1,8 +1,8 @@
 {
   "episode": {
     "info": {
-      "count": 41,
-      "pages": 3,
+      "count": "41",
+      "pages": "3",
       "next": "https://rickandmortyapi.com/api/episode?page=2",
       "prev": null
     },

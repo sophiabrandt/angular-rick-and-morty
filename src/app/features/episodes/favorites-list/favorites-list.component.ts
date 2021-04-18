@@ -23,7 +23,13 @@ import { Episodes, ResultsEntity } from '../../episodes.entity';
             <a href="#" class="link dark-green lh-title">
               <span class="fw7 underline-hover">{{ fav?.name }}</span>
             </a>
-            <button class="ml2 bn pointer" type="button">&#10007;</button>
+            <button
+              (click)="onDelete(fav.id)"
+              class="ml2 bn pointer"
+              type="button"
+            >
+              &#10007;
+            </button>
           </li>
         </ul>
       </article>
@@ -45,4 +51,8 @@ export class FavoritesListComponent {
   );
 
   constructor(private episodesService: EpisodesService) {}
+
+  onDelete(episodeId: number): void {
+    this.episodesService.deleteFavorite(episodeId);
+  }
 }

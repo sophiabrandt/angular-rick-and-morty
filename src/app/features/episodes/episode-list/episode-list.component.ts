@@ -89,7 +89,7 @@ interface EpisodeSearch {
                   >Link</a
                 >
                 <button
-                  (click)="onFavorited(result.id)"
+                  (click)="onFavorite(result.id)"
                   class="w-25 tc pointer br2 ba b--dark-green bg-green white pa2 ml1 mv1 bg-animate hover-bg-dark-green border-box"
                   type="button"
                 >
@@ -147,7 +147,7 @@ export class EpisodeListComponent {
     this.searchForm.reset();
   }
 
-  onFavorited(episodeId: number): void {
-    this.episodesService.favoriteEpisode(episodeId);
+  onFavorite(episodeId: number): void {
+    this.episodesService.addFavorite(episodeId);
   }
 }

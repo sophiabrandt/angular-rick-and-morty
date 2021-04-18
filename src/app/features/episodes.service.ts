@@ -17,9 +17,12 @@ export class EpisodesService {
 
   episodes$ = this.http
     .get<Episodes>(this.episodesUrl)
-    .pipe(catchError(this.handleError));
+    .pipe(
+      shareReplay({ refCount: true, bufferSize: 1 }),
+      catchError(this.handleError)
+    );
 
-  private episodesFavoriteSubject = new BehaviorSubject<Number[]>([]);
+  private episodesFavoriteSubject = new BehaviorSubject<number[]>([]);
   episodesFavoriteAction$ = this.episodesFavoriteSubject.asObservable();
 
   favorites$ = combineLatest(
@@ -27,10 +30,9 @@ export class EpisodesService {
     this.episodesFavoriteAction$
   ).pipe(
     map(
-      ([results, favorites]: [ResultsEntity[] | null | undefined, Number[]]) =>
+      ([results, favorites]: [ResultsEntity[] | null | undefined, number[]]) =>
         results?.filter((result) => favorites.includes(result.id))
     ),
-    shareReplay({ refCount: true, bufferSize: 1 }),
     catchError(this.handleError)
   );
 

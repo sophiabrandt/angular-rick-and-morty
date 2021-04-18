@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "eslint --fix \"{,!(node_modules|.next)/**/}*.{js,ts}\"",
     "e2e": "ng e2e",
     "json-server": "json-server --port 3004 -r routes.json --watch db.json"
   },

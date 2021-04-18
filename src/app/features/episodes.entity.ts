@@ -1,6 +1,6 @@
 export interface Episodes {
   info: Info;
-  results?: (ResultsEntity)[] | null;
+  results?: ResultsEntity[] | null;
 }
 export interface Info {
   count: number;
@@ -13,7 +13,7 @@ export interface ResultsEntity {
   name: string;
   air_date: string;
   episode: string;
-  characters?: (string)[] | null;
+  characters?: string[] | null;
   url: string;
   created: string;
 }

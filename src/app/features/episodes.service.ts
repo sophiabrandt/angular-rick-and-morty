@@ -39,23 +39,20 @@ export class EpisodesService {
   constructor(private http: HttpClient) {}
 
   addFavorite(episodeId: number): void {
-    this.episodesFavoriteSubject.pipe(take(1)).subscribe((favs) => {
-      // only add a new favorite episode if it doesn't exist yet
-      const prevFavs = new Set(favs);
-      prevFavs.add(episodeId);
-      const newFavs = Array.from(prevFavs);
-      if (newFavs.length !== favs.length) {
-        this.episodesFavoriteSubject.next(newFavs);
-      }
-    });
+    const favs = this.episodesFavoriteSubject.value;
+    const prevFavs = new Set(favs);
+    prevFavs.add(episodeId);
+    const newFavs = Array.from(prevFavs);
+    if (newFavs.length !== favs.length) {
+      this.episodesFavoriteSubject.next(newFavs);
+    }
   }
 
   deleteFavorite(episodeId: number): void {
-    this.episodesFavoriteSubject.pipe(take(1)).subscribe((favs) => {
-      this.episodesFavoriteSubject.next(
-        favs.filter((favId) => favId !== episodeId)
-      );
-    });
+    const deleted = this.episodesFavoriteSubject.value.filter(
+      (fav) => fav !== episodeId
+    );
+    this.episodesFavoriteSubject.next(deleted);
   }
 
   private handleError(err: any) {
